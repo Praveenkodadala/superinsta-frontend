@@ -5,7 +5,8 @@ import {
     FormOutline,
     DashboardOutline,
     UserOutline,
-    LockOutline
+    LockOutline,
+    MailOutline
 } from '@ant-design/icons-angular/icons';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
@@ -14,7 +15,9 @@ const icons = [MenuFoldOutline,
     DashboardOutline,
     FormOutline,
     UserOutline,
-    LockOutline];
+    LockOutline,
+    MailOutline
+];
 
 export function provideNzIcons(): EnvironmentProviders {
     return importProvidersFrom(NzIconModule.forRoot(icons));

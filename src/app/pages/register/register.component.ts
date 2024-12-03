@@ -8,38 +8,45 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule, NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss'
 })
-export class LoginComponent {
+export class RegisterComponent {
+
   validateForm!: FormGroup;
+
   constructor(private fb: NonNullableFormBuilder, private router: Router,) {}
 
   ngOnInit(): void {
-    this.loginForm();
+    this.registerForm();
   }
 
-  loginForm() {
+  registerForm() {
     this.validateForm = this.fb.group({
       username: this.fb.control('', [Validators.required]),
-      password: this.fb.control('', [Validators.required]),
-      remember: this.fb.control(true)
+      email: this.fb.control('', [Validators.required, Validators.email]),
+      password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: this.fb.control('', [Validators.required]),
+      agree: this.fb.control(false, [Validators.requiredTrue]),
     });
   }
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
+      console.log('Registration Successful:', this.validateForm.value);
     } else {
-      console.log('Invalid form')
+      console.log("invalid form")
     }
   }
-  
-  goToRegisterPage() {
-    let route = 'register';
-    this.router.navigate([route]);
+
+  goToLoginPage() {
+    this.router.navigate(["login"]);
   }
+
+  
+
+
 }
