@@ -33,8 +33,10 @@ export class LoginComponent {
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
+      this.router.navigate(["dashboard"]);
     } else {
       console.log('Invalid form')
+      this.router.navigate(["dashboard"]);
     }
   }
   
