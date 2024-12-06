@@ -10,5 +10,5 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'supergram-frontend';
+  
 }
