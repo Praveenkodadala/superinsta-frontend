@@ -1,52 +1,81 @@
 import { Component } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzInputModule } from 'ng-zorro-antd/input';
+import { HttpService } from '../../services/http/http.service';
+import { NgZorroAntdModule } from '../../ng-zorro-antd.module';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgZorroAntdModule
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+  registrationForm!: FormGroup;
+  isLoadingButton = false
+  registrationSuccess = false;
 
-  validateForm!: FormGroup;
-
-  constructor(private fb: NonNullableFormBuilder, private router: Router,) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private httpService: HttpService,
+    private message: NzMessageService
+  ) { }
 
   ngOnInit(): void {
-    this.registerForm();
+    this.registrationFormFunc();
   }
 
-  registerForm() {
-    this.validateForm = this.fb.group({
-      username: this.fb.control('', [Validators.required]),
-      email: this.fb.control('', [Validators.required, Validators.email]),
-      password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
-      confirmPassword: this.fb.control('', [Validators.required]),
-      agree: this.fb.control(false, [Validators.requiredTrue]),
-    });
+  registrationFormFunc() {
+    this.registrationForm = this.fb.group({
+      firstName: ["", Validators.required],
+      lastName: [""],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
+      confirmPassword: ['', Validators.required],
+      agree:[true, [Validators.requiredTrue]]
+    },
+    );
   }
 
-  submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('Registration Successful:', this.validateForm.value);
-    } else {
-      console.log("invalid form")
+  submitForm() {
+    if (!this.registrationForm.valid) {
+      this.message.create('error', 'Please fill in the form correctly.');
+      return;
     }
+    this.isLoadingButton = true
+    const formData = this.registrationForm.value;
+    const request = {
+      params: formData,
+      method: 'POST',
+      action_url: '/signup'  //Domin/api/login
+    };
+    this.httpService.doHttpFormData(request)?.subscribe({
+      next: (res: any) => {
+        if (res.body.status) {
+          this.isLoadingButton = false
+          this.registrationForm.reset()
+          this.registrationSuccess = true;
+          this.message.create('success', res.body.message);
+        }
+      },
+      error: (err) => {
+        this.isLoadingButton = false;
+        this.message.create('error', err);
+      },
+    });
   }
 
   goToLoginPage() {
     this.router.navigate(["login"]);
   }
-
-  
 
 
 }

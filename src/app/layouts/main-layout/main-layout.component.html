@@ -10,15 +10,53 @@
   </nz-sider>
   <nz-layout>
     <nz-header>
-      <div>
-      <nz-avatar nzSize="large"  nzIcon="user"></nz-avatar>
-      </div>
+      <nz-row nzJustify="end" nzAlign="middle" style="height: 100%;">
+        <span nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu">
+          <nz-avatar nzIcon="user" [nzSize]="64" [nzSrc]="avatarUrl"></nz-avatar>
+        </span>
+      </nz-row>
+      <nz-dropdown-menu #userMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item>
+            <strong>Hello, Praveen!</strong>
+          </li>
+          <li nz-menu-divider></li>
+          <li nz-menu-item>
+            <div>
+              <strong>Email:</strong> emil
+            </div>
+          </li>
+          <li nz-menu-divider></li>
+          <li nz-menu-item (click)="showModalEditProfile()">
+            <a>
+              <span nz-icon nzType="user" style="margin-right: 8px;"></span>
+              Profile
+            </a>
+          </li>
+          <li nz-menu-item (click)="showModalChangePassword()">
+            <a>
+              <span nz-icon nzType="lock" style="margin-right: 8px;"></span>
+              Change Password
+            </a>
+          </li>
+          <li nz-menu-divider></li>
+          <li nz-menu-item (click)="logout()">
+            <a>
+              <span nz-icon nzType="logout" style="margin-right: 8px;"></span>
+              Logout
+            </a>
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+
     </nz-header>
     <nz-content>
+    
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
+
     </nz-content>
-    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+    <nz-footer>Design ©2024</nz-footer>
   </nz-layout>
 </nz-layout>

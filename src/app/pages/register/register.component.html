@@ -1,11 +1,31 @@
-<form nz-form [formGroup]="validateForm" class="register-form" (ngSubmit)="submitForm()">
-    <nz-form-item>
-      <nz-form-control >
-        <nz-input-group nzPrefixIcon="user">
-          <input type="text" nz-input formControlName="username" placeholder="Username" />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
+<div *ngIf="registrationSuccess; else form">
+  <nz-result
+    nzIcon="smile-twotone"
+    nzTitle="Great, registration has been done, now please login!"
+  >
+    <div nz-result-extra>
+      <button nz-button nzType="primary" (click)="goToLoginPage()">Login</button>
+    </div>
+  </nz-result>
+</div>
+
+<ng-template #form>
+<form nz-form [formGroup]="registrationForm" class="register-form" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzPrefixIcon="user">
+        <input type="text" nz-input placeholder="First name" formControlName="firstName" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzPrefixIcon="user">
+        <input type="text" nz-input placeholder="Last name" formControlName="lastName" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
   
     <nz-form-item>
       <nz-form-control >
@@ -39,8 +59,8 @@
       </div>
     </div>
   
-    <button nz-button class="register-form-button register-form-margin" [nzType]="'primary'">Register</button>
+    <button nz-button class="register-form-button register-form-margin" [nzType]="'primary'" [disabled]="!registrationForm.valid"  [nzLoading]="isLoadingButton">Register</button>
     Or
     <a (click)="goToLoginPage()">login now!</a>
   </form>
-  
+</ng-template>

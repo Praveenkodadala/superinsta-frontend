@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { FeedRoutingModule } from './feed-routing.module';
 
 
@@ -8,7 +7,7 @@ import { FeedRoutingModule } from './feed-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    FeedRoutingModule
+    FeedRoutingModule,
   ]
 })
 export class FeedModule { }
