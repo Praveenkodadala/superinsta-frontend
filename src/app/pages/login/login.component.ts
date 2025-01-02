@@ -5,6 +5,7 @@ import { NgZorroAntdModule } from '../../ng-zorro-antd.module';
 import { HttpService } from '../../services/http/http.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent {
     private router: Router,
     private httpService: HttpService,
     private storageService: StorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private message:NzMessageService
   ) { }
 
   ngOnInit(): void {
@@ -65,7 +67,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.isLoadingButton = false
-        alert(err);
+        this.message.create('error', err);
       },
     });
   }

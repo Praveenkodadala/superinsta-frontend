@@ -57,7 +57,7 @@ export class HttpService {
         break;
     }
     console.error('HTTP error:', error);
-    return throwError(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 
 
