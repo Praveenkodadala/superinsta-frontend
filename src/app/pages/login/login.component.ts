@@ -27,7 +27,9 @@ export class LoginComponent {
     private storageService: StorageService,
     private authService: AuthService,
     private message:NzMessageService
-  ) { }
+  ) {
+   
+   }
 
   ngOnInit(): void {
     this.loginFormFunc();
@@ -60,13 +62,14 @@ export class LoginComponent {
         if (res.body.status) {
           this.isLoadingButton = false
           this.storageService.setLocalStorage('userData', JSON.stringify(res.body.data));
-         // this.httpService.userData = res.body.data;
+          this.loginForm.reset()
           this.authService.login()
         }
      
       },
       error: (err) => {
         this.isLoadingButton = false
+        this.loginForm.reset()
         this.message.create('error', err);
       },
     });

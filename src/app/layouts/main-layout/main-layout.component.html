@@ -18,12 +18,12 @@
       <nz-dropdown-menu #userMenu="nzDropdownMenu">
         <ul nz-menu>
           <li nz-menu-item>
-            <strong>Hello, Praveen!</strong>
+            <strong>Hello,&nbsp;{{ userData?.firstName || '--' | titlecase }} {{ userData?.lastName | titlecase }}!</strong>
           </li>
           <li nz-menu-divider></li>
           <li nz-menu-item>
             <div>
-              <strong>Email:</strong> emil
+              <strong>Email:</strong> {{userData.email || '--'}}
             </div>
           </li>
           <li nz-menu-divider></li>
@@ -57,6 +57,6 @@
       </div>
 
     </nz-content>
-    <nz-footer>Design ©2024</nz-footer>
+    <nz-footer>Design ©2025</nz-footer>
   </nz-layout>
 </nz-layout>

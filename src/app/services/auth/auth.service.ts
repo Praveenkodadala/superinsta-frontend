@@ -31,7 +31,7 @@ export class AuthService {
 
   login() {
     this.loggedIn = true;
-    this.router.navigate(["feed"]);
+    this.router.navigate(["home"]);
   }
 
   async logout() {
@@ -44,17 +44,18 @@ export class AuthService {
       next: (res: any) => {
         if (res.body.status) {
           this.isLoadingButton = false
-          this.storageService.removeLocalStorage('auth-token')
-          this.storageService.removeLocalStorage('userData')
-          localStorage.clear();
+          this.storageService.clearLocalStorage()
           this.loggedIn = false;
-          this.message.create('success', res.body.message);
+         // this.message.create('success', res.body.message);
           this.router.navigateByUrl('login');
         }
       },
       error: (err) => {
         this.isLoadingButton = false;
-        this.message.create('error', err);
+        this.storageService.clearLocalStorage()
+        this.loggedIn = false;
+       // this.message.create('error', err);
+        this.router.navigateByUrl('login');
       },
     });
   }

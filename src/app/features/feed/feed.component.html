@@ -1,9 +1,34 @@
-<div
-  nz-row
-  class="welcome-message-container"
-  [nzJustify]="'center'"
-  [nzAlign]="'middle'"
->
-  <h4>Welcome to superInsta Feed</h4>
-  <p>We are currently working on the application. It will be released soon.</p>
+<div class="feed-container">
+  <!-- New Post Box -->
+  <nz-card class="new-post-card">
+    <div class="new-post-box">
+      <nz-avatar nzIcon="user" class="user-avatar"></nz-avatar>
+      <nz-input-group>
+        <input
+          type="text"
+          nz-input
+          placeholder="What's on your mind?"
+          [(ngModel)]="newPostContent"
+        />
+      </nz-input-group>
+      <button nz-button nzType="primary" (click)="createPost()">Post</button>
+    </div>
+  </nz-card>
+
+  <!-- Post Feed -->
+  <div class="posts-container">
+    <nz-card *ngFor="let post of posts" class="post-card">
+      <div class="post-header">
+        <nz-avatar nzIcon="user" class="post-avatar"></nz-avatar>
+        <span class="username">{{ post.username }}</span>
+      </div>
+      <div class="post-content">
+        <p *ngIf="post.text">{{ post.text }}</p>
+        <img *ngIf="post.imageUrl" [src]="post.imageUrl" class="post-image" />
+        <video *ngIf="post.videoUrl" controls class="post-video">
+          <source [src]="post.videoUrl" type="video/mp4" />
+        </video>
+      </div>
+    </nz-card>
+  </div>
 </div>

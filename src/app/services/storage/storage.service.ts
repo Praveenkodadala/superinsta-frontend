@@ -39,6 +39,10 @@ export class StorageService {
     this.localStorage.removeItem(key);
   }
 
+  public clearLocalStorage(): void {
+    this.localStorage.clear();
+  }
+
   public setSessionStorage(key: string, value: string): void {
     this.sessionStorage.setItem(key, value);
   }

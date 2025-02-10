@@ -7,6 +7,8 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NgZorroAntdModule } from '../../ng-zorro-antd.module';
 import { AuthService } from '../../services/auth/auth.service';
+import { StorageService } from '../../services/storage/storage.service';
+import { SocketService } from '../../services/socket/socket.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -25,13 +27,31 @@ import { AuthService } from '../../services/auth/auth.service';
 export class MainLayoutComponent {
   isCollapsed = false;
   sideMenuData: { title: string; icon: string; url: string }[] = [
-    { title: 'Dashboard', icon: 'dashboard', url: 'dashboard' },
-    { title: 'Feed', icon: 'appstore', url: 'feed' },
+    { title: 'Home', icon: 'home', url: 'home' },
   ];
   avatarUrl: string ='//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png';
-  userData = {};
+  userData:any= {};
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, 
+    private authService: AuthService,
+    private storageService: StorageService,
+    private socketService: SocketService
+  ) {
+    const storedUserData = this.storageService.getObjectLocalStorage('userData');
+    this.userData = storedUserData && Object.keys(storedUserData).length ? storedUserData : {};
+    console.log('Logged in user:', this.userData.email);
+  }
+
+  ngOnInit(): void {
+    const isLoggedIn = !!this.storageService.getLocalStorage('auth-token'); // Checking if user is logged in with token
+    if (isLoggedIn) {
+      this.socketService.connect(); // Connect to socket after successful login
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.socketService.disconnect(); // Clean up when component is destroyed
+  }
 
   redirect(sideMenuItem: any) {
     let route = [`${sideMenuItem.url}`];

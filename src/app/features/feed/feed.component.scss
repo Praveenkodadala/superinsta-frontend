@@ -1,9 +1,61 @@
-.welcome-message-container {
-    height: 100%; /* Match row height for vertical centering */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  
+.feed-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.new-post-card {
+  margin-bottom: 20px;
+}
+
+.new-post-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-card {
+  padding: 15px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.post-content {
+  margin-top: 10px;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.post-video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
