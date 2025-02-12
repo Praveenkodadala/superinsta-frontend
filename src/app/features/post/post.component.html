@@ -1,44 +1,10 @@
-<!-- <div class="post-container">
-    <div class="post-header">
-      <img [src]="post.profilePicture" class="profile-pic">
-      <span class="username">{{ post.username }}</span>
-      <span class="timestamp">{{ post.createdAt | date: 'short' }}</span>
-    </div>
-  
-    <p class="post-content">{{ post.content }}</p>
-  
-    <div class="post-media" *ngIf="post.media.length">
-        <ng-container *ngFor="let media of post.media">
-          <img *ngIf="media.type === 'image'" [src]="media.url" class="media-image">
-          <video *ngIf="media.type === 'video'" controls class="media-video">
-            <source [src]="media.url" type="video/mp4">
-          </video>
-        </ng-container>
-      </div>
-      
-  
-    <div class="post-actions">
-      <button nz-button nzType="text"><i nz-icon nzType="like"></i> {{ post.engagement.likes }}</button>
-      <button nz-button nzType="text"><i nz-icon nzType="message"></i> {{ post.engagement.comments }}</button>
-      <button nz-button nzType="text"><i nz-icon nzType="share-alt"></i> {{ post.engagement.shares }}</button>
-    </div>
-  </div>
-
-
-
-
-  
-
- -->
-
-
  <div class="post-container">
     <!-- Post Header -->
     <div class="post-header">
       <img [src]="post.profilePicture" class="profile-pic" alt="Profile">
       <div class="header-details">
         <span class="username">{{ post.username }}</span>
-        <span class="timestamp">{{ post.createdAt | date: 'short' }}</span>
+        <span class="timestamp">{{ post.createdAt | date: 'long' }}</span>
       </div>
     </div>
   

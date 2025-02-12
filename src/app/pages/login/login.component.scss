@@ -28,6 +28,27 @@
   }
 }
 
+.login-form-button {
+  width: 100%;
+  background-color: #a0cfff; /* Light blue when disabled */
+  border-color: #a0cfff;
+  color: white;
+}
+
+.login-form-button:enabled {
+  background-color: #1890ff; /* Full blue when enabled */
+  border-color: #1890ff;
+  color: white;
+}
+
+.login-form-button:disabled {
+  background-color: #a0cfff !important; /* Light blue when disabled */
+  border-color: #a0cfff !important;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: not-allowed;
+}
+
+
 @media (max-width: 576px) {
   .login-form {
     max-width: 90%;
