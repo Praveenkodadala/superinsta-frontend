@@ -23,7 +23,7 @@ export class HomeService {
 
 
   createPost(request: any): Observable<any> {
-    return this.httpService.doHttpJson(request);
+    return this.httpService.doHttpFormData(request);
   }
 
   uploadMedia(formData: FormData): Observable<any> {

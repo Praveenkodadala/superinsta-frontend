@@ -25,10 +25,19 @@ export class HomeComponent implements OnInit {
  
   posts: Post[] = [];
 
-  ngOnInit() {}
+ 
+  constructor(private homeService: HomeService) {}
+
+  ngOnInit() {
+    // Listen for new posts in real-time
+    this.homeService.listenForNewPosts((newPost: Post) => {
+      console.log("new post from backend", newPost)
+      this.posts.unshift(newPost); // Add new post at the top
+    });
+  }
 
   addNewPost(newPost: Post) {
-    this.posts.unshift(newPost); // Add to the beginning of the array
+   // this.posts.unshift(newPost); // Add to the beginning of the array
   }
 
 }
