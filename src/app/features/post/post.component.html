@@ -1,9 +1,9 @@
  <div class="post-container">
     <!-- Post Header -->
     <div class="post-header">
-      <img [src]="post.profilePicture" class="profile-pic" alt="Profile">
+      <img [src]="post.user.avatar.url" class="profile-pic" alt="Profile">
       <div class="header-details">
-        <span class="username">{{ post.username }}</span>
+        <span class="username">{{ post.user.firstName }}</span>
         <span class="timestamp">{{ post.createdAt | date: 'long' }}</span>
       </div>
     </div>

@@ -3,14 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from '../ng-zorro-antd.module';
 import { HomeService } from '../services/home/home.service';
-import { Post, Media } from '../models/posts.model';
+import { Post } from '../models/posts.model';
 import { NewPostComponent } from '../features/new-post/new-post.component';
 import { PostComponent } from '../features/post/post.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzListModule } from 'ng-zorro-antd/list';
-
-
-
 
 @Component({
   selector: 'app-home',
@@ -19,28 +16,16 @@ import { NzListModule } from 'ng-zorro-antd/list';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-
-
 export class HomeComponent implements OnInit {
- 
   posts: Post[] = [];
 
- 
   constructor(private homeService: HomeService) {}
 
   ngOnInit() {
-    // Listen for new posts in real-time
+    // Listen for new posts in real-time from the backend
     this.homeService.listenForNewPosts((newPost: Post) => {
-      console.log("new post from backend", newPost)
+      console.log("New post from backend:", newPost);
       this.posts.unshift(newPost); // Add new post at the top
     });
   }
-
-  addNewPost(newPost: Post) {
-   // this.posts.unshift(newPost); // Add to the beginning of the array
-  }
-
 }
-
-
-

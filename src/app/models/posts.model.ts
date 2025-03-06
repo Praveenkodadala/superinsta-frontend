@@ -40,9 +40,9 @@ export interface Reaction {
   
   export interface Post {
     id: string;
-    userId: string;
-    username: string;
-    profilePicture: string;
+    // user: { avatar: { url: string , }, firstName: string, lastName: string, username: string, };
+    // username: string;
+    // profilePicture: string;
     content: string;
     media: Media[];
     postType: 'text' | 'image' | 'video' | 'reel' | 'story' | 'poll' | 'event' | 'live';

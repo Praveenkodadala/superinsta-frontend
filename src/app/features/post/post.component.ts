@@ -16,7 +16,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   styleUrl: './post.component.scss'
 })
 export class PostComponent {
-  @Input() post!: Post;
+  @Input() post!: any;
  
 }
 

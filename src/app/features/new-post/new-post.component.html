@@ -1,18 +1,15 @@
 <div class="new-post-container">
-    <nz-input-group>
-      <textarea nz-input [(ngModel)]="newPostContent" placeholder="What’s happening?" [nzAutosize]="{ minRows: 2, maxRows: 5 }"></textarea>
-    </nz-input-group>
-  
-    <div class="post-actions">
-      <nz-upload 
-        [nzFileList]="fileList" 
-        [nzBeforeUpload]="beforeUpload" 
-        nzMultiple="true"
-        >
-        <button nz-button nzType="text"><i nz-icon nzType="upload"></i></button>
-      </nz-upload>
-  
-      <button nz-button nzType="primary" [disabled]="!newPostContent" (click)="createPost()">Post</button>
-    </div>
+  <nz-input-group>
+    <textarea nz-input [(ngModel)]="newPostContent" placeholder="What’s happening?" [nzAutosize]="{ minRows: 2, maxRows: 5 }"></textarea>
+  </nz-input-group>
+
+  <div class="post-actions">
+    <nz-upload 
+      [nzFileList]="fileList" 
+      [nzBeforeUpload]="beforeUpload" 
+      nzMultiple>
+      <button nz-button><i nz-icon nzType="upload"></i> Upload</button>
+    </nz-upload>
+    <button nz-button nzType="primary" (click)="createPost()">Post</button>
   </div>
-  
+</div>
