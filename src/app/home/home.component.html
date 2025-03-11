@@ -1,7 +1,15 @@
 <div class="home-container">
-  <app-new-post></app-new-post>  
+  <nz-spin [nzSpinning]="isSpinning">
+    <app-new-post (postStatus)="handlePostStatus($event)"></app-new-post>
 
-  <div *ngFor="let post of posts">
-    <app-post [post]="post"></app-post>
-  </div>
+    <nz-spin [nzSpinning]="isPosting">
+      <div *ngFor="let post of posts">
+        <app-post [post]="post"></app-post>
+      </div>
+    </nz-spin>
+
+    <div class="loading-more" *ngIf="isFetchingOlder || isFetchingNewer">
+      <nz-spin></nz-spin>
+    </div>
+  </nz-spin>
 </div>

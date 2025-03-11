@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { NzUploadModule, NzUploadFile } from 'ng-zorro-antd/upload';
 import { Post, Media } from '../../models/posts.model';
 import { HomeService } from '../../services/home/home.service';
+import { PostService } from '../../services/post/post.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-new-post',
@@ -17,11 +19,14 @@ import { HomeService } from '../../services/home/home.service';
   styleUrl: './new-post.component.scss'
 })
 export class NewPostComponent {
+  @Output() postStatus = new EventEmitter<boolean>(); 
+
+
   newPostContent: string = '';
   fileList: NzUploadFile[] = [];
   isSpinning: boolean = false;
 
-  constructor(private homeService: HomeService) {}
+  constructor(private homeService: HomeService, private postService:PostService, private message:NzMessageService) {}
 
   beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = [...this.fileList, file];
@@ -31,18 +36,14 @@ export class NewPostComponent {
   createPost(): void {
     if (!this.newPostContent && this.fileList.length === 0) return;
     this.isSpinning = true;
-
-    // Construct media array
+    this.postStatus.emit(true);
+  
     const media: Media[] = this.fileList.map((file: any) => ({
-      url: '', // Backend should provide the actual URL after upload
+      url: '', 
       type: file.type.startsWith('image') ? 'image' : 'video',
     }));
 
     const newPost: any = {
-      id: Math.random().toString(36).substr(2, 9),
-       
-      // username: 'John Doe',
-      // profilePicture: 'https://example.com/profile.jpg',
       content: this.newPostContent,
       media: media,
       visibility: 'public',
@@ -68,7 +69,7 @@ export class NewPostComponent {
       params: formData,
     };
 
-    this.homeService.createPost(request).subscribe({
+    this.postService.createPost(request).subscribe({
       next: () => {
         this.newPostContent = '';
         this.fileList = [];
@@ -77,6 +78,8 @@ export class NewPostComponent {
       error: (error) => {
         console.error('Failed to create post:', error);
         this.isSpinning = false;
+        this.postStatus.emit(true);
+        this.message.create('error', error);
       },
     });
   }

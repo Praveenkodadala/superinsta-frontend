@@ -13,9 +13,7 @@ export class HomeService {
   ) {}
 
 
-  getPosts(request: any): Observable<any> {
-    return this.httpService.doHttpJson(request);
-  }
+
 
   listenForNewPosts(callback: (post: any) => void): void {
     this.socketService.listen('newPost', callback);
